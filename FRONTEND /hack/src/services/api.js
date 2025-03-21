@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000/api"; // Update this with your backend URL
+const API_BASE_URL = "http://localhost:8000/api/v1"; // Update this with your backend URL
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -21,7 +21,7 @@ api.interceptors.request.use((config) => {
 // Auth endpoints
 export const login = async (email, password) => {
   try {
-    const response = await api.post("/auth/login", { email, password });
+    const response = await api.post("/users/login", { email, password });
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -30,7 +30,7 @@ export const login = async (email, password) => {
 
 export const signup = async (userData) => {
   try {
-    const response = await api.post("/auth/signup", userData);
+    const response = await api.post("/users/register", userData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -39,7 +39,7 @@ export const signup = async (userData) => {
 
 export const logout = async () => {
   try {
-    const response = await api.post("/auth/logout");
+    const response = await api.post("/users/logout");
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;

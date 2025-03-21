@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./signup.css" 
+import "./signup.css";
+import { signup } from "../services/api";
+
 const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     console.log("Signing up with:", { username, fullName, email, password });
+
+    try {
+      const response = await signup({ username, fullName, email, password });
+
+      console.log("Signup successful", response);
+      alert("Signup successful , Please log in");
+      navigate("/");
+    } catch (error) {
+      console.error("SIGNUP FAILED ", error);
+      set.error("Failed to sign up , Please try again after some time ");
+    }
   };
   return (
     <div className="signup-container">
@@ -57,13 +70,17 @@ const SignupPage = () => {
               required
             />
           </div>
-          <button type="submit" className="signup-btn">Sign Up</button>
+          <button type="submit" className="signup-btn">
+            Sign Up
+          </button>
         </form>
         <p className="login-text">
           Already have an account?
           <Link to="/">
-          <a className="belli" href="#">Login</a>
-          </Link> 
+            <a className="belli" href="#">
+              Login
+            </a>
+          </Link>
         </p>
       </div>
     </div>

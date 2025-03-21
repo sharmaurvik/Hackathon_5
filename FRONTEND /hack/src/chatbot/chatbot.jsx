@@ -32,9 +32,9 @@ const Chatbot = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/chatbot",
+        "http://localhost:8000/api/v1/chatbot/query",
         {
-          message: inputMessage,
+          userQuery: inputMessage,
         },
         {
           headers: {
@@ -45,7 +45,7 @@ const Chatbot = () => {
       );
 
       const botMessage = {
-        content: response.data.response,
+        content: response.data.data.content,
         sender: "bot",
         timestamp: new Date().toISOString(),
       };
